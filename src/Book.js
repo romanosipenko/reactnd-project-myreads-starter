@@ -4,7 +4,6 @@ import React, {Component} from 'react'
 
 class Book extends Component {
   render () {
-    console.log(this.props.book)
     return (
       <li>
         <div className="book">
@@ -21,7 +20,11 @@ class Book extends Component {
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>
-          <div className="book-authors">{this.props.book.authors.join(', ')}</div>
+          {/* There are some rare cases when .authors is not defined and we have to handle this */}
+          {this.props.book.authors &&
+            <div className="book-authors">{this.props.book.authors.join(', ')}</div>
+          }
+
         </div>
       </li>
     )
