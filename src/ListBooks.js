@@ -12,9 +12,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf title='Currently Reading' books={this.props.books.filter((book) => book.shelf === 'currentlyReading')}/>
-            <BookShelf title='Want to Read' books={this.props.books.filter((book) => book.shelf === 'wantToRead')}/>
-            <BookShelf title='Read' books={this.props.books.filter((book) => book.shelf === 'read')}/>
+            <BookShelf purpose='currentlyReading' title='Currently Reading' books={this.props.books}/>
+            <BookShelf purpose='wantToRead' title='Want to Read' books={this.props.books}/>
+            <BookShelf purpose='read' title='Read' books={this.props.books}/>
           </div>
         </div>
         <div className="open-search">
