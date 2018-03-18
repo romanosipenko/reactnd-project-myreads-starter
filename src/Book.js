@@ -3,6 +3,11 @@ import React, {Component} from 'react'
 // import {Link} from 'react-router-dom'
 
 class Book extends Component {
+
+  handleMove = (e) => {
+    this.props.onMoveBook(this.props.book, e.target.value);
+  }
+
   render () {
     return (
       <li>
@@ -10,7 +15,7 @@ class Book extends Component {
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ this.props.book.imageLinks.smallThumbnail +')' }}></div>
             <div className="book-shelf-changer">
-              <select>
+              <select onChange={this.handleMove} value={this.props.book.shelf}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -24,7 +29,6 @@ class Book extends Component {
           {this.props.book.authors &&
             <div className="book-authors">{this.props.book.authors.join(', ')}</div>
           }
-
         </div>
       </li>
     )
