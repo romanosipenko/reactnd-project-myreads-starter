@@ -1,23 +1,33 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 
 
 class SearchBooks extends Component {
+  static propTypes = {
+      books: PropTypes.array.isRequired,
+      onMoveBook: PropTypes.func.isRequired
+  }
 
   state = {
-    books: []
+    booksSearch: []
   }
 
   handleKeyUp = (e) => {
-    BooksAPI.search(e.target.value).then((books) => {
-      if (Array.isArray(books)) {
-          this.setState({books})
+    BooksAPI.search(e.target.value).then((booksSearch) => {
+      if (Array.isArray(booksSearch)) {
+        booksSearch = booksSearch.map((book) => {
+          const sameBook = this.props.books.filter((bookInShelf) => bookInShelf.id === book.id)
+          book.shelf = sameBook.length > 0 ? sameBook[0].shelf : 'none'
+
+          return book
+        })
+        this.setState({booksSearch})
       }
       else {
-        this.setState({books: []})
+        this.setState({booksSearch: []})
       }
 
     })
@@ -34,8 +44,8 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.books.map((book) => (
-              <Book key={book.id} book={book}/>
+            {this.state.booksSearch.map((book) => (
+              <Book key={book.id} book={book} onMoveBook={this.props.onMoveBook}/>
             ))}
           </ol>
         </div>

@@ -1,9 +1,14 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import BookShelf from './BookShelf'
 
 class ListBooks extends Component {
+  static propTypes = {
+      books: PropTypes.array.isRequired,
+      onMoveBook: PropTypes.func.isRequired
+  }
+
   render() {
     const currentlyReading = this.props.books.filter((book) => book.shelf === 'currentlyReading')
     const wantToRead = this.props.books.filter((book) => book.shelf === 'wantToRead')
