@@ -8,6 +8,7 @@ class Book extends Component {
   }
 
   handleMove = (e) => {
+    this.props.book.shelf = e.target.value;
     this.props.onMoveBook(this.props.book, e.target.value);
   }
 
